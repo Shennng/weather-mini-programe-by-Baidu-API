@@ -1,0 +1,13 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/list/list"
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "Wang的天气",
+    "navigationBarTextStyle": "black",
+    "enablePullDownRefresh": true
+  }
+}
