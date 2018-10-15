@@ -1,4 +1,9 @@
 <view class="weather-wrapper">
+<!--  
+  <view class='official-account'>
+    <official-account></official-account>
+  </view> 
+  -->
   <button class="location-wrapper" open-type="{{ locationAuthType==0 ? 'openSetting' : ''}}" bindopensetting="onTapRegetWeather" plain="true"> 
     <view class="location"> 
      <image class="location-icon" 

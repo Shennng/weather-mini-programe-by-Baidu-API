@@ -1,14 +1,5 @@
 const bmap = require('../../libs/bmap-wx.js')
 
-const weatherMap = {
-  '晴转': 'sunny',
-  '多云': 'cloudy', 
-  '阴转': 'overcast',
-  '小雨': 'lightrain',
-  '大雨': 'heavyrain',
-  '雪': 'snow'
-}
-
 const weatherColorMap = {
   'sunny': '#cbeefd',
   'cloudy': '#deeef6',
@@ -104,19 +95,22 @@ Page({
     });
   },
   setToday(todayData) {
+    let todayTemp = todayData.temperature;
+    let index = todayTemp.indexOf('~');
     let weatherDesc = todayData.weatherDesc;
     let weather = (
-      weatherDesc.slice(0, 1) === '晴' ?
-        'sunny' : (weatherDesc.slice(0, 1) === '阴') ?
-          'overcast' : (weatherDesc.slice(1, 2) === '云') ?
-            'cloudy' : (weatherDesc.slice(1, 2) === '雨') ?
-              'heavyrain' : 'snow');
+      weatherDesc.indexOf('雷') != -1 ?
+      'heavyrain' : weatherDesc.indexOf('雪') != -1 ?
+      'snow' : weatherDesc.indexOf('雨') != -1 ?
+      'lightrain' : weatherDesc.indexOf('阴') != -1 ?
+      'overcast' : weatherDesc.indexOf('云') != -1 ?
+      'cloudy' : 'sunny');
     this.setData({
       nowTemp: ( 
         todayData.date.substr(-4, 3)[0] == '：' ? todayData.date.substr(-4, 3).slice(1) : todayData.date.substr(-4, 3)),
       nowWeather: weatherDesc,
       nowWeatherBackground: weather,
-      todayTemp: todayData.temperature,
+      todayTemp: `${todayTemp.slice(index + 2, -1)} ~ ${todayTemp.slice(0, index - 1)}℃`,
       todayDate: todayData.date.slice(0, 9)+' 今天',
       todayPM25: todayData.pm25,
       todayWind: todayData.wind,
@@ -135,16 +129,19 @@ Page({
     let fourDaysWeather = [];
     for (let i = 0; i < 4; i ++) {
       let data = future4DaysData[i];
+      let temp = data.temperature;
+      let index = temp.indexOf('~');
       let weather = (
-        data.weather.slice(0, 1) === '晴' ?
-          'sunny' : (data.weather.slice(0, 1) === '阴') ?
-            'overcast' : (data.weather.slice(1, 2) === '云') ?
-              'cloudy' : (data.weather.slice(1, 2) === '雨') ?
-                'heavyrain' : 'snow');
+        data.weather.indexOf('雷') != -1 ?
+        'heavyrain' : data.weather.indexOf('雪') != -1 ?
+        'snow' : data.weather.indexOf('雨') != -1 ?
+        'lightrain' : data.weather.indexOf('阴') != -1 ?
+        'overcast' : data.weather.indexOf('云') != -1 ?
+        'cloudy' : 'sunny');
       fourDaysWeather.push({
         time: data.date.slice(0,2),
         iconPath: '/images/' + weather + '-icon.png',
-        temp: data.temperature
+        temp: `${temp.slice(index + 2, -1)} ~ ${temp.slice(0, index - 1)}℃`
       });
     };
     fourDaysWeather[0].time = '今天';
