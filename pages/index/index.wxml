@@ -19,9 +19,12 @@
   <image class="weather-bg" wx:if="{{nowWeatherBackground}}"
   src="/images/{{nowWeatherBackground}}-bg.png"
   mode="scaleToFill"></image>
-  <view class="day-weather">
+  <view class="day-weather" bindtap='onTaptoList'>
     <view class="day-text">{{todayDate}}</view>
+    <view class="wind-text">{{todayWind}}</view>
     <view class="temp-text">{{todayTemp}}</view>
+    <image class='arrow-icon'
+    src='/images/arrow.png'></image>
   </view>
 </view>
 

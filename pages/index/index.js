@@ -15,24 +15,24 @@ const AUTHORIZED = 1  //已允许
 Page({
   data: {
     nowTemp: "15℃",
-    nowWeather: "小雨转中雨",
-    nowWeatherBackground: 'heavyrain',
+    nowWeather: "晴转多云",
+    nowWeatherBackground: 'sunny',
     fourDaysWeather: [
       {time: "今天", 
-      iconPath: "/images/heavyrain-icon.png", 
-      temp: "19 ~ 14℃" },
+      iconPath: "/images/sunny-icon.png", 
+      temp: "14 ~ 19℃" },
       {time: "周日", 
-      iconPath: "/images/heavyrain-icon.png", 
-      temp: "17 ~ 14℃" },
+        iconPath: "/images/overcast-icon.png", 
+      temp: "14 ~ 17℃" },
       {time: "周一", 
-      iconPath: "/images/heavyrain-icon.png", 
-      temp: "17 ~ 14℃" },
+        iconPath: "/images/snow-icon.png", 
+      temp: "12 ~ 19℃" },
       {time: "周二", 
       iconPath: "/images/cloudy-icon.png", 
-      temp: "21 ~ 15℃" }
+      temp: "15 ~ 21℃" }
     ],
     todayTemp: '14 ~ 19℃',
-    todayDate: '周五 10月12日',
+    todayDate: '周日 5月20日',
     todayPM25: '67',
     todayWind: '北风微风',
     todayTips: [],
@@ -56,14 +56,15 @@ Page({
         let todayData = res.currentWeather[0];
         let future4DaysData = 
           res.originalData.results[0].weather_data;
-        this.setData({
-          locationAuthType: AUTHORIZED
-        });
+        let todayTips = res.originalData.results[0].index;
+
         this.setToday(todayData);
         this.setFuture4Days(future4DaysData);
+
         this.setData({
+          todayTips: todayTips,
           locationAuthType: AUTHORIZED
-        })
+        });
       },
       fail: res => {
         this.setData({
@@ -71,7 +72,7 @@ Page({
         });
       }
     });
-    callback && callback() && wx.showToast({title: '刷新成功'});
+    callback && (callback(),wx.showToast({title: '刷新成功'}));
   },
   onTapRegetWeather() {
     wx.getSetting({
@@ -111,7 +112,7 @@ Page({
       nowWeather: weatherDesc,
       nowWeatherBackground: weather,
       todayTemp: `${todayTemp.slice(index + 2, -1)} ~ ${todayTemp.slice(0, index - 1)}℃`,
-      todayDate: todayData.date.slice(0, 9)+' 今天',
+      todayDate: todayData.date.slice(0, 9),
       todayPM25: todayData.pm25,
       todayWind: todayData.wind,
       city: todayData.currentCity,
@@ -148,5 +149,12 @@ Page({
     this.setData({
       fourDaysWeather: fourDaysWeather
     });
+  },
+  onTaptoList() {
+    let data = this.data.todayTips;
+    wx.navigateTo({
+      url: 
+        `/pages/list/list?wearTitle=${data[0].title}&wearDesc=${data[0].des}&wearZs=${data[0].zs}&carTitle=${data[1].title}&carDesc=${data[1].des}&carZs=${data[1].zs}&influenzaTitle=${data[2].title}&influenzaDesc=${data[2].des}&influenzaZs=${data[2].zs}&sportTitle=${data[3].title}&sportDesc=${data[3].des}&sportZs=${data[3].zs}&uvTitle=${data[4].title}&uvDesc=${data[4].des}&uvZs=${data[4].zs}`
+    })
   }
 })

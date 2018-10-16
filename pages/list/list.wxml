@@ -1,9 +1,13 @@
 <!--pages/list/list.wxml-->
-<view class="date-item" wx:for="{{weekWeather}}">
-    <view class="date-wrapper">
-      <view class="day">{{item.day}}</view>
-      <view class="date">{{item.date}}</view>
+<image class='list-bg' src='/images/list-icon/list-bg.jpg'></image>
+<view class="todayTips" wx:for="{{todayTips}}">
+  <image class="tipType-icon" src="{{item.iconPath}}"></image>
+  <view class="tips">
+    <view class="todayTip">
+      <view class="tipType-title">{{item.title}}</view>
+      <view class="tip-index">{{item.zs}}</view>
     </view>
-    <view class="temp">{{item.temp}}</view>
-    <image class="weather-icon" src="{{item.iconPath}}"></image>  
+    <view class="tip-text">{{item.des}}</view>
+  </view>
 </view>
+
