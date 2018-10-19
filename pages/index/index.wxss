@@ -66,8 +66,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 40rpx;
-  margin-bottom: 45rpx;
+  margin: 10rpx 20rpx 30rpx; /*上 左右 下*/
+  /*border-bottom: 1px solid rgba(0, 0, 0, 0.1);*/
 }
 
 .timetips-icon {
@@ -78,7 +78,7 @@
 
 .timetips-text {
   font-size: 35rpx;
-  line-height: 49rpx;
+  line-height: 90rpx;
   opacity: 0.5;
 }
 
@@ -91,7 +91,12 @@
   flex-direction: column;
   flex-shrink: 0;
   width: 187rpx;
-  align-items: center
+  align-items: center;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.forecast-item:last-child {
+  border-right: none;
 }
 
 .forecast-time {

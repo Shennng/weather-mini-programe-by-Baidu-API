@@ -1,5 +1,5 @@
 <!--pages/list/list.wxml-->
-<image class='list-bg' src='/images/list-icon/list-bg.jpg'></image>
+<image class='list-bg' src='/images/list-icon/list-bg7.jpg'></image>
 <view class="todayTips" wx:for="{{todayTips}}">
   <image class="tipType-icon" src="{{item.iconPath}}"></image>
   <view class="tips">

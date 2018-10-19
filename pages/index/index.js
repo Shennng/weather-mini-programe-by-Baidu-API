@@ -152,9 +152,17 @@ Page({
   },
   onTaptoList() {
     let data = this.data.todayTips;
+    let dataString = '';
+    let zsType = ['wear', 'car', 'influenza', 'sport', 'uv']
+    for (let i = 0; i < data.length; i++) {
+      if (!i) {
+        dataString += `${zsType[i]}Tipt=${data[i].tipt}&${zsType[i]}Desc=${data[i].des}&${zsType[i]}Zs=${data[i].zs}`
+      } else {
+        dataString += `&${zsType[i]}Tipt=${data[i].tipt}&${zsType[i]}Desc=${data[i].des}&${zsType[i]}Zs=${data[i].zs}`
+      }
+    }
     wx.navigateTo({
-      url: 
-        `/pages/list/list?wearTitle=${data[0].title}&wearDesc=${data[0].des}&wearZs=${data[0].zs}&carTitle=${data[1].title}&carDesc=${data[1].des}&carZs=${data[1].zs}&influenzaTitle=${data[2].title}&influenzaDesc=${data[2].des}&influenzaZs=${data[2].zs}&sportTitle=${data[3].title}&sportDesc=${data[3].des}&sportZs=${data[3].zs}&uvTitle=${data[4].title}&uvDesc=${data[4].des}&uvZs=${data[4].zs}`
+      url: `/pages/list/list?${dataString}`
     })
   }
 })
